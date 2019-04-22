@@ -23,8 +23,6 @@ function calcqr(FPSid, ccy, amount) {
   const countryCode = '5802HK';
   const merchantName = '5902NA';
   const merchantCity = '6002HK';
-  const billNo = '010898756383'; // Not sure we use this
-  const additionalInfo = '62' + billNo.length.toString().padStart(2, '0');
   const crcValue = '6304';
 
   const qrTempStr = payloadFormatIndicator +
@@ -36,12 +34,13 @@ function calcqr(FPSid, ccy, amount) {
                     countryCode + 
                     merchantName + 
                     merchantCity +
-                    additionalInfo +
-                    billNo +
                     crcValue;
 
-  const crcRes = crc16ccitt(qrTempStr).toString(16);
+  // HSBC weants the hex in uppercase ...
+  const crcRes = crc16ccitt(qrTempStr).toString(16).toUpperCase();
   const finalQRStr = qrTempStr + crcRes;
+
+  document.getElementById("qrtext").innerHTML = finalQRStr;
   
   QrCodeWithLogo.toCanvas({
     canvas: document.getElementById('qrcanvas'),
