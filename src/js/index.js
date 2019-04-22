@@ -1,10 +1,11 @@
-import 'bootstrap';
+// Just import the piece of bootstrap we use to keep the size down
+import 'bootstrap/js/dist/button';
 import '../scss/index.scss';
 
 import QrCodeWithLogo from 'qr-code-with-logo'
 import crc16ccitt from 'crc/crc16ccitt'
 
-import LocalImage from '../public/treelogo.jpg'
+import LocalImage from '../public/images/treelogo.jpg'
  
 function calcqr(FPSid, ccy, amount) {
 

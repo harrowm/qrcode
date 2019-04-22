@@ -9,6 +9,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CssUrlRelativePlugin = require('css-url-relative-plugin');
 
+const glob = require('glob')
+const PurgecssPlugin = require('purgecss-webpack-plugin')
+
 const IS_DEV = process.env.NODE_ENV === 'dev';
 
 const config = {
@@ -140,8 +143,11 @@ if (!IS_DEV) {
   const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
   config.optimization.minimizer.push(
-    new TerserPlugin(),
-    new OptimizeCSSAssetsPlugin({})
+    new TerserPlugin({ parallel: true }),
+    new OptimizeCSSAssetsPlugin({}),
+    new PurgecssPlugin({
+      paths: glob.sync(`./src/**/*`,  { nodir: true }),
+    }),
   );
 }
 
