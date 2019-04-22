@@ -11,7 +11,7 @@ function calcqr(FPSid, ccy, amount) {
   const payloadFormatIndicator = '000201';
   const pointOfInitiationMethod = '010212';
   const globallyUniqueId = '0012hk.com.hkicl';
-  const fpsAccount = '0207' + FPSid;
+  const fpsAccount = '02' + FPSid.length.toString().padStart(2, '0') + FPSid;
 
   const hkPaymentInfo = globallyUniqueId + fpsAccount;
   const hkPaymentCode = '26' + hkPaymentInfo.length.toString().padStart(2, '0');
